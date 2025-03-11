@@ -1,0 +1,130 @@
+\documentclass[aps,prb,onecolumn,11pt,superscriptaddress,floatfix,longbibliography]{revtex4-2}
+
+\usepackage{amsmath,amssymb} % math symbols
+\usepackage{bm} % bold math font
+\usepackage{graphicx} % for figures
+\usepackage{comment} % allows block comments
+
+\usepackage{enumitem}
+\setlist{noitemsep,leftmargin=*,topsep=0pt,parsep=0pt}
+
+\usepackage{hyperref}
+
+\usepackage{xcolor}
+\definecolor{blue}{RGB}{33, 118, 199}
+\newcommand{\blue}[1]{\textcolor{blue}{#1}}
+\definecolor{green}{RGB}{0, 128, 0}
+\newcommand{\green}[1]{\textcolor{green}{#1}}
+\definecolor{red}{RGB}{230, 0, 20}
+\newcommand{\red}[1]{\textcolor{red}{#1}}
+
+\begin{document}
+
+\title{Muon Lifetime Experiment Summary}
+
+\author{Nicholas Lyu}
+\email[]{nicholaslyu@college.harvard.edu}
+\affiliation{Harvard University}
+\author{Adam Pearl}
+\email[]{apearl@college.harvard.edu}
+\affiliation{Harvard University}
+
+\date{January 25, 2022}
+
+\maketitle
+
+\section{\label{sec:goals}Experiment Goals}
+
+The primary objective of this experiment is to measure the lifetime of a muon (\(\tau_\mu\)) by observing its decay and fitting the resulting exponential distribution. This measurement also allows us to infer the Fermi constant (\(G_F\)) since \(\tau_\mu^{-1} \propto G_F^2\). Additionally, we aim to determine the muon rest mass by analyzing the energy spectrum of decay electrons.
+
+\begin{enumerate}
+    \item Measure the lifetime of a muon \(\tau_\mu\) and extract the weak force coupling constant \(G_F\).
+    \begin{enumerate}
+        \item Muons originate from cosmic ray interactions, where pions and kaons decay into muons and muon neutrinos.
+        \item Muons decay via weak interaction: 
+        \begin{align*}
+            \mu^- &\to e^- \bar{\nu}_e \nu_\mu, \\
+            \mu^+ &\to e^+ \nu_e \bar{\nu}_\mu.
+        \end{align*}
+        \item Negative muons can also be absorbed in matter: 
+        \begin{align*}
+            \mu^- p^+ \to n \nu_\mu.
+        \end{align*}
+        The probability of capture depends on the atomic number \(Z\) and scales roughly as \(Z^4\) for low \(Z\). Since we use a plastic (hydrocarbon) scintillator, we approximate it as carbon.
+        \item The decay rate follows:  
+        \[
+        -\frac{dN}{dt} = N_0 \Gamma_\mu e^{-\Gamma_\mu t}.
+        \]
+        Taking the logarithm, we obtain a linear form:  
+        \[
+        \ln\left(-\frac{dN}{dt}\right) = \ln(N_0 \Gamma_\mu) - \Gamma_\mu t.
+        \]
+        We fit this to extract \(\Gamma_\mu\), from which \(\tau_\mu\) can be determined.
+    \end{enumerate}
+    
+    \item Measure the muon rest mass by analyzing the decay electron energy spectrum.
+    \begin{enumerate}
+        \item In the decay \(\mu^- \to e^- \bar{\nu}_e \nu_\mu\), energy conservation dictates that the electron carries roughly half of the muon's rest energy.
+        \item The energy spectrum of electrons is analyzed to identify the high-energy cutoff, which provides an estimate of the muon mass.
+        \item Calibration is performed using the energy deposition (\(dE/dx\)) of minimally ionizing muons.
+    \end{enumerate}
+\end{enumerate}
+
+\section{\label{sec:experiment}Experimental Considerations}
+
+\begin{enumerate}
+    \item \textbf{Trigger Calibration:}  
+    The detection system must effectively filter out non-muon events. The muon signature is identified using:  
+    \begin{itemize}
+        \item \textbf{Start Signal:} \(T \wedge M \wedge \bar{B}\), indicating a muon stopping in the middle detector.
+        \item \textbf{Stop Signal:} Any secondary signal in \(M\), or an event where the electron escapes upward (\(T \wedge M \wedge \bar{B}\)) or downward (\(\bar{T} \wedge M \wedge B\)).
+    \end{itemize}
+    A gate lasting several muon lifetimes is implemented, and the \(B\) signal is extended to prevent false triggers.
+
+    \item \textbf{Scintillation and Detection:}  
+    Muons excite the plastic scintillator, producing light that is detected by the photomultiplier tubes (PMTs).  
+    \begin{itemize}
+        \item The PMT converts light into an electrical signal via the photoelectric effect.
+        \item The signal is amplified through a cascade of dynodes, creating a measurable output.
+        \item Possible issues include afterpulsing from ionized residual gases inside the PMT.
+    \end{itemize}
+
+    \item \textbf{Data Acquisition and Analysis:}  
+    The oscilloscope and LabVIEW software record time intervals between the start and stop signals. A histogram of these delays should follow an exponential decay, allowing \(\tau_\mu\) extraction through curve fitting.
+\end{enumerate}
+
+\section{\label{sec:safety}Safety Considerations}
+
+\begin{enumerate}
+    \item \textbf{High Voltages:}  
+    \begin{itemize}
+        \item PMTs operate at -2.0 kV to -2.4 kV. Handle cables carefully.
+        \item DO NOT hot-plug high voltage connections.
+    \end{itemize}
+    \item \textbf{Radiation:}  
+    \begin{itemize}
+        \item Cosmic ray muons pose no significant health risk.
+        \item Ensure proper shielding of electrical components.
+    \end{itemize}
+\end{enumerate}
+
+\section{\label{sec:questions}Questions}
+
+\begin{enumerate}
+    \item Why do we only consider muons that stop in the middle detector for lifetime measurements?
+    \item Are we fitting \(\tau_\mu\) from the decay rate equation, or are we directly measuring lifetimes from individual events?
+    \item What are the primary sources of background noise in the signal, and how do we mitigate them?
+    \item How does the discriminator threshold affect the efficiency of the detector, and how should it be calibrated?
+    \item How does the afterpulsing effect in PMTs influence our measurements, and what techniques can be used to suppress it?
+\end{enumerate}
+
+% \nocite{BernheimAJP1956}  
+% \nocite{Buhr1983}  
+% \nocite{McMahon1983}  
+% \nocite{MartinAJP1984}  
+% \nocite{Liu1987}  
+% \nocite{Hanne1988}  
+
+% \bibliography{refs}
+
+\end{document}
